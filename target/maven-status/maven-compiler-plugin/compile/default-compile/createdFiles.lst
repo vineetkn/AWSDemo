@@ -1,0 +1,4 @@
+com\ng\integrations\ServletInitializer.class
+com\ng\integrations\CanaraFintechIntegrations.class
+com\ng\integrations\exception\handler\RestExceptionHandler.class
+com\ng\integrations\config\SwaggerConfig.class

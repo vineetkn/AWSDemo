@@ -1,0 +1,266 @@
+spring: 
+  profiles:
+    active: central-canara
+  mvc: 
+    pathmatch:
+      matchingStrategy: ant-path-matcher
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+  cache:
+    type: redis
+    host: localhost
+    port: 6379
+
+server:
+  port: 8089
+
+com:
+  ng:
+    projects:
+      header:
+        transunion: true
+db:
+  value:
+    column: 
+      encrypted: false 
+      encryptionkey: 3WeszPWQPdqTD0mK1N04HiPYlUJCaG5Hn5KayljLjXw=
+  reqResLog:
+    encrypted: false
+redis:
+  enabled: true
+  
+---
+spring:
+  profiles: canara-dev
+  datasource:
+    jndiName: java:/candlp_uat
+  jpa: 
+    database-platform: org.hibernate.dialect.Oracle12cDialect
+    hibernate:
+      ddlAuto: none
+      useNewIdGeneratorMappings: false
+    show-sql: true
+    
+    
+---
+spring:
+  profiles: canara-prod
+  datasource:
+    jndiName: java:/candlp
+  jpa: 
+    database-platform: org.hibernate.dialect.Oracle12cDialect
+    hibernate:
+      ddlAuto: none
+      useNewIdGeneratorMappings: false
+    show-sql: true
+
+---
+spring:
+  profiles: central-canara
+  datasource:
+    url: jdbc:oracle:thin:@192.168.142.163:1521/orclpdb
+    driverClassName: oracle.jdbc.driver.OracleDriver
+    username: NG_IM
+    password: NG_IM
+  jpa: 
+    database-platform: org.hibernate.dialect.Oracle12cDialect
+    hibernate:
+      ddlAuto: none
+      useNewIdGeneratorMappings: false
+    show-sql: true
+    properties:
+      hibernate:
+        default_schema: INTEGRATIONS_CANARA
+
+
+---
+spring:
+  profiles: test-canara
+  datasource:
+    url: jdbc:oracle:thin:@192.168.142.163:1521/orclpdb
+    driverClassName: oracle.jdbc.driver.OracleDriver
+    username: NG_IM
+    password: NG_IM
+  jpa: 
+    database-platform: org.hibernate.dialect.Oracle12cDialect
+    hibernate:
+      ddlAuto: none
+      useNewIdGeneratorMappings: false
+    show-sql: true
+    properties:
+      hibernate:
+        default_schema: CENTRAL_TESTING
+
+
+
+---
+spring:
+  profiles: oracle-canara
+  datasource:
+    url: jdbc:oracle:thin:@192.168.149.28:1521/XEPDB1
+    driverClassName: oracle.jdbc.driver.OracleDriver
+    username: CANARA_INTEGRATIONS
+    password: password
+  jpa: 
+    database-platform: org.hibernate.dialect.Oracle12cDialect
+    hibernate:
+      ddlAuto: none
+      useNewIdGeneratorMappings: false
+    show-sql: true
+  
+  
+
+---
+
+spring:
+  profiles: local
+  datasource:
+    url: jdbc:mysql://localhost:3306/can_integrations
+    driverClassName: com.mysql.cj.jdbc.Driver
+    username: root
+    password: password
+  jpa: 
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddlAuto: update
+    show-sql: true
+  sql:
+    init:
+      mode: always
+      data-locations: "*.sql"
+
+---
+spring:
+  profiles: sbi-agri-dev
+  datasource:
+    jndiName: "sbibpm"
+  jpa: 
+    database-platform: org.hibernate.dialect.Oracle12cDialect
+    hibernate:
+      ddlAuto: none
+      useNewIdGeneratorMappings: false
+    show-sql: true
+  
+---
+spring:
+  profiles: canara-dev
+  datasource:
+    jndiName: java:/candlp_uat
+  jpa: 
+    database-platform: org.hibernate.dialect.Oracle12cDialect
+    hibernate:
+      ddlAuto: none
+      useNewIdGeneratorMappings: false
+    show-sql: true
+
+
+---
+spring:
+  profiles: agri-dev
+  datasource:
+    url: jdbc:oracle:thin:@192.168.136.150:1521/pdborcl
+    driverClassName: oracle.jdbc.driver.OracleDriver
+    username: agri
+    password: agri
+    type: oracle.ucp.jdbc.PoolDataSource
+    oracleucp:
+      connectionFactoryClassName: oracle.jdbc.pool.OracleDataSource
+      sqlForValidateConnection: select * from dual 
+      connectionPoolName: UcpPoolFintechIntegrations
+      initialPoolSize: 5
+      minPoolSize: 5
+      maxPoolSize: 10
+#    jndiName: LocalBoB
+  jpa: 
+    database-platform: org.hibernate.dialect.Oracle12cDialect
+    hibernate:
+      ddlAuto: none
+      useNewIdGeneratorMappings: false
+    show-sql: true
+
+
+---
+spring:
+  profiles: oracle-docker-internal
+  datasource:
+    jndiName: "java:/OracleDS1"
+  jpa: 
+    database-platform: org.hibernate.dialect.Oracle12cDialect
+    hibernate:
+      ddlAuto: none
+      useNewIdGeneratorMappings: false
+    show-sql: true
+
+---
+spring:
+  profiles: oracle-docker
+  datasource:
+    url: jdbc:oracle:thin:@192.168.156.23:32680/XEPDB1
+    driverClassName: oracle.jdbc.driver.OracleDriver
+    username: SBI_FINTECH
+    password: password
+    type: oracle.ucp.jdbc.PoolDataSource
+    oracleucp:
+      connectionFactoryClassName: oracle.jdbc.pool.OracleDataSource
+      sqlForValidateConnection: select * from dual 
+      connectionPoolName: UcpPoolFintechIntegrations
+      initialPoolSize: 5
+      minPoolSize: 5
+      maxPoolSize: 10
+#    jndiName: LocalBoB
+  jpa: 
+    database-platform: org.hibernate.dialect.Oracle12cDialect
+    hibernate:
+      ddlAuto: update
+      useNewIdGeneratorMappings: false
+    show-sql: true
+
+---
+
+spring:
+  profiles: dev
+  datasource:
+    url: jdbc:mysql://192.168.96.54:3306/sbi_fintech_integrations
+    driverClassName: com.mysql.cj.jdbc.Driver
+    username: anupam
+    password: password
+  jpa: 
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddlAuto: update
+    show-sql: true
+  sql:
+    init:
+      mode: always
+      data-locations: "*.sql"
+
+---
+
+spring:
+  profiles: oracle
+  datasource:
+    url: jdbc:oracle:thin:@192.168.149.28:1521/XEPDB1
+    driverClassName: oracle.jdbc.driver.OracleDriver
+    username: FINTECH_INTEGRATIONS
+    password: password
+    type: oracle.ucp.jdbc.PoolDataSource
+    oracleucp:
+      connectionFactoryClassName: oracle.jdbc.pool.OracleDataSource
+      sqlForValidateConnection: select * from dual 
+      connectionPoolName: UcpPoolSBIFintechIntegrations
+      initialPoolSize: 5
+      minPoolSize: 5
+      maxPoolSize: 10
+  jpa: 
+    database-platform: org.hibernate.dialect.Oracle12cDialect
+    hibernate:
+      ddlAuto: update
+      useNewIdGeneratorMappings: false
+    show-sql: true
+  sql:
+    init:
+      mode: always
+      data-locations: "*.sql"
+  

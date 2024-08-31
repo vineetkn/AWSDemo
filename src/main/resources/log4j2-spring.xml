@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout
+                pattern="%style{%d{ISO8601}}{black} %highlight{%-5level }[%style{%t}{bright,blue}] %style{%C{1.}}{bright,yellow}:(%F:%L), %msg%n%throwable" />
+        </Console>
+
+        <RollingFile name="RollingFile"
+            fileName="./logs/fintech_integrations_canara.log"
+            filePattern="./logs/$${date:yyyy-MM}/spring-boot-logger-log4j2-%d{-dd-MMMM-yyyy}-%i.log.gz">
+            <PatternLayout>
+                <pattern>%d %p %C{1.} [%t] %m%n</pattern>
+            </PatternLayout>
+            <Policies>
+                <OnStartupTriggeringPolicy />
+                <SizeBasedTriggeringPolicy
+                    size="5 MB" />
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <!-- LOG everything at INFO level -->
+        <Root level="debug" includeLocation="true">
+            <AppenderRef ref="Console" />
+            <AppenderRef ref="RollingFile" />
+        </Root>
+        <Logger name="com.ng.integrations" level="debug"></Logger>
+        <Logger name="org.springframework" level="warn"></Logger>
+        <Logger name="org.hibernate.SQL" level="debug"></Logger>
+        <Logger name="org.hibernate.stat" level="info"></Logger>
+        <Logger name="org.hibernate" level="warn"></Logger>
+        <Logger name="com.zaxxer.hikari" level="warn"></Logger>
+        <Logger name="springfox.documentation" level="warn"></Logger>
+        <Logger name="io.letuce.core" level="warn"></Logger>
+        <Logger name="io.letuce.core.protocol" level="warn"></Logger>
+    </Loggers>
+
+</Configuration>
